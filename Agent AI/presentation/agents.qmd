@@ -1,0 +1,88 @@
+---
+title: "LLM-based Agents"
+execute: 
+   echo: true
+format: 
+    revealjs:
+        incremental: true
+        theme: [beige, custom.scss]
+        transition: fade
+        chalkboard:
+            theme: whiteboard
+        smaller: true
+        progress: true
+---
+
+## Agents
+
+*Taxonomy*
+
+. . .
+
+**Dynamic Programming**
+
+- Value Iteration
+- Policy Iteration
+
+**Reinforcement Learning**
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+- Offline
+- Online
+
+:::
+
+::: {.column width="30%"}
+
+- Model-Based
+- Model-Free
+
+:::
+
+::: {.column width="40%"}
+
+- Value-Based
+- Policy-Based
+- Actor-Critic
+- Planning
+
+:::
+
+::::
+
+## Agents
+
+*Dynamic Programming: Value Iteration Method*
+
+. . .
+
+- Initialize value function $v_0(s) = 0$ for all states $s$
+
+- Value update
+    - Update $v_{k+1}(s) = \max_a \left[ \sum_{s'} p(s'|s, a) \left( r(s, a, s') + \gamma v_k(s') \right) \right]$ for all states $s$
+
+- Stopping criterion
+    - Stop when $\max_s | v_{k+1}(s) - v_k(s) | < \theta$ for all states $s$
+
+- Optimal policy extraction
+    - $\pi^*(s) = \arg\max_a \left[ \sum_{s'} p(s'|s, a) \left( r(s, a, s') + \gamma v^*(s') \right) \right]$
+
+## Agents
+
+*Dynamic Programming: Policy Iteration Method*
+
+. . .
+
+- Initialize policy $\pi_0(s)$ for all states $s$
+
+- Policy evaluation
+    - Solve $v^{\pi_k}(s) = \sum_{s'} p(s'|s, \pi_k(s)) \left[ r(s, \pi_k(s), s') + \gamma v^{\pi_k}(s') \right]$ for all states $s$
+
+- Policy improvement
+    - Update $\pi_{k+1}(s) = \arg\max_a \left[ \sum_{s'} p(s'|s, a) \left( r(s, a, s') + \gamma v^{\pi_k}(s') \right) \right]$
+
+- Stopping criterion
+    - $\pi_{k+1}(s) = \pi_k(s)$ for all states $s$
