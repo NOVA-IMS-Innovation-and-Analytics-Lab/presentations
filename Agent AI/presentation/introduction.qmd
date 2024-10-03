@@ -1,0 +1,88 @@
+---
+title: "LLM-based Agents"
+execute: 
+   echo: true
+format: 
+    revealjs:
+        incremental: true
+        theme: [beige, custom.scss]
+        transition: fade
+        chalkboard:
+            theme: whiteboard
+        smaller: true
+        progress: true
+---
+
+<!----------------------------------------------------- Content ----------------------------------------------------->
+
+# Introduction
+
+## Reinforcement Learning
+
+![](images/reinforcement_learning.png)
+
+. . .
+
+- An agent learns to optimize a specified target through trial and error interactions with the environment
+
+. . .
+
+- Traditional RL methods struggle with high-dimensional state spaces and complex environments
+
+. . .
+
+- Integration of deep learning techniques with RL has led to significant breakthroughs
+
+## Large Language Models
+
+- LLMs typically refer to the Transformer-based language models containing hundreds of billions of parameters
+
+. . .
+
+- They tend to exhibit emergent abilities that are not present in small models
+
+    - In-context learning
+
+        - Task-related texts are included in the prompts as context information
+
+    - Instruction following
+
+        - Diverse task-specific datasets formatted with natural language descriptions
+
+    - Step-by-step reasoning
+
+        - Chain of Thought
+
+        - Tree of Thought
+
+        - Graph of Thought 
+
+## LLM-enhanced Reinforcement Learning
+
+- Methods that utilize the high-level cognitive capabilities of pre-trained LLM models to assist the RL paradigm
+
+- Taxonomy
+
+    - Information processor
+
+        - Feature representations extraction
+
+        - Information translation to DSL
+
+    - Reward designer
+
+        - Implicit
+
+        - Explicit
+
+    - Decision-maker
+
+        - Action making
+
+        - Action guiding
+
+    - Generator
+
+        - World model simulator
+
+        - Policy interpreter

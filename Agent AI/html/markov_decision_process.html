@@ -1089,7 +1089,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <ul>
 <li class="fragment"><span class="math inline">\([P]_{(s, a), s^{\prime}}=p\left(s^{\prime} \mid s, a\right)\)</span></li>
 </ul>
-<div id="d0825088" class="cell" data-execution_count="1">
+<div id="33f6ddf7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href=""></a>P <span class="op">=</span> np.array(</span>
 <span id="cb1-3"><a href=""></a>    [</span>
@@ -1121,7 +1121,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <ul>
 <li class="fragment"><span class="math inline">\([R]_{(s, a), r}=p\left(r \mid s, a\right)\)</span></li>
 </ul>
-<div id="af64a4a2" class="cell" data-execution_count="2">
+<div id="2aeae5af" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>R <span class="op">=</span> np.array(</span>
 <span id="cb2-2"><a href=""></a>    [</span>
 <span id="cb2-3"><a href=""></a>        [<span class="fl">1.</span>, <span class="fl">0.</span>, <span class="fl">0.</span>],</span>
@@ -1160,7 +1160,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <ul>
 <li class="fragment"><span class="math inline">\([\Pi]_{a, s} = p(a \mid s)\)</span></li>
 </ul>
-<div id="213b0f80" class="cell" data-execution_count="3">
+<div id="22463b58" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>Pi <span class="op">=</span> np.array([</span>
 <span id="cb3-2"><a href=""></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
 <span id="cb3-3"><a href=""></a>    [<span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
@@ -1183,7 +1183,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <li class="fragment"><span class="math inline">\(\left[r_\pi\right]_s = \sum_{a \in \mathscr{A}} \pi(a \mid s) \sum_{r \in \mathscr{R}} p(r \mid s, a) r\)</span></li>
 <li class="fragment"><span class="math inline">\(\left[r_\pi\right]_s = \sum_{a \in \mathscr{A}} \big( R \cdot \left[\begin{array}{c}-1 &amp; 1 &amp; 0 \end{array}\right]^T \big)_{s, a} \cdot [\Pi]_{a, s}\)</span></li>
 </ul>
-<div id="43f49978" class="cell" data-execution_count="4">
+<div id="67b7d714" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>r_space <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>])</span>
 <span id="cb4-2"><a href=""></a>r_p <span class="op">=</span> np.diagonal(</span>
 <span id="cb4-3"><a href=""></a>    np.matmul(</span>
@@ -1192,7 +1192,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <span id="cb4-6"><a href=""></a>    )</span>
 <span id="cb4-7"><a href=""></a>)</span>
 <span id="cb4-8"><a href=""></a>r_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([-0.5,  1. ,  1. ,  1. ])</code></pre>
 </div>
 </div>
@@ -1202,7 +1202,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <li class="fragment"><span class="math inline">\(\left[P_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathscr{A}} \pi(a \mid s) p\left(s^{\prime} \mid s, a\right)\)</span></li>
 <li class="fragment"><span class="math inline">\(\left[P_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathscr{A}} [\Pi^T]_{s, a} [P]_{(s, a), s^{\prime}}\)</span></li>
 </ul>
-<div id="27771030" class="cell" data-execution_count="5">
+<div id="1fd78607" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>P_p <span class="op">=</span> np.diagonal(</span>
 <span id="cb6-2"><a href=""></a>    np.matmul(</span>
 <span id="cb6-3"><a href=""></a>        P.T.reshape(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>), </span>
@@ -1210,7 +1210,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <span id="cb6-5"><a href=""></a>    ).T</span>
 <span id="cb6-6"><a href=""></a>).T</span>
 <span id="cb6-7"><a href=""></a>P_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([[0. , 0.5, 0.5, 0. ],
        [0. , 0. , 0. , 1. ],
        [0. , 0. , 0. , 1. ],
@@ -1230,12 +1230,12 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <ul>
 <li class="fragment"><span class="math inline">\(v_\pi=\left(I-\gamma P_\pi\right)^{-1} r_\pi\)</span></li>
 </ul>
-<div id="9730fed1" class="cell" data-execution_count="6">
+<div id="ce5eb97f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>gamma <span class="op">=</span> <span class="fl">0.9</span></span>
 <span id="cb8-2"><a href=""></a>I <span class="op">=</span> np.identity(r_p.size)</span>
 <span id="cb8-3"><a href=""></a>v_cfs <span class="op">=</span> np.dot(np.linalg.inv(I <span class="op">-</span> gamma <span class="op">*</span> P_p), r_p)</span>
 <span id="cb8-4"><a href=""></a>v_cfs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array([ 8.5, 10. , 10. , 10. ])</code></pre>
 </div>
 </div>
@@ -1252,7 +1252,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <ul>
 <li class="fragment"><span class="math inline">\(v_{k+1}=r_\pi+\gamma P_\pi v_k, \quad k=0,1,2, \ldots\)</span></li>
 </ul>
-<div id="472a038b" class="cell" data-execution_count="7">
+<div id="d232e264" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>tol <span class="op">=</span> <span class="fl">1e-5</span></span>
 <span id="cb10-2"><a href=""></a>v_is <span class="op">=</span> np.zeros_like(r_p)</span>
 <span id="cb10-3"><a href=""></a><span class="cf">while</span> <span class="va">True</span>:</span>
@@ -1262,7 +1262,7 @@ a\right) v_\pi\left(s^{\prime}\right)\)</span></li>
 <span id="cb10-7"><a href=""></a>    <span class="cf">if</span> np.<span class="bu">any</span>(diff <span class="op">&lt;</span> tol):</span>
 <span id="cb10-8"><a href=""></a>        <span class="cf">break</span></span>
 <span id="cb10-9"><a href=""></a>v_is</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([8.49991665, 9.99991665, 9.99991665, 9.99991665])</code></pre>
 </div>
 </div>
