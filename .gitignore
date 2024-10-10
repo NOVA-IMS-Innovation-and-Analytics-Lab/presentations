@@ -1,4 +1,6 @@
 .venv
 .vscode
 .DS_Store
-/.quarto/
+.quarto
+*_files
+videos

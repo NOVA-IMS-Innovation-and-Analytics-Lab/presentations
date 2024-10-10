@@ -1,0 +1,188 @@
+---
+title: "LLM-based Agents"
+format:
+  html
+jupyter: python3
+---
+
+![](images/reinforcement_learning.png)
+
+# Environment
+
+We can get the available environments:
+
+```{python}
+# Imports
+from torchrl.envs import GymEnv
+
+GymEnv.available_envs
+```
+
+We are going to use the `Lunar Lander`environment.
+
+## Creation
+
+```{python}
+env = GymEnv('LunarLander-v3', render_mode='rgb_array')
+```
+
+## Observation space
+
+- The state is an 8-dimensional vector with continuous values
+    - The coordinates of the lander in `x` and `y`
+    - Its linear velocities in `x` and `y`
+    - Its angle and angular velocity
+    - Two booleans that represent whether each leg is in contact with the ground or not
+
+```{python}
+env.observation_space
+```
+
+## Action space
+
+- There are 4 discrete actions
+    - 0: do nothing
+    - 1: fire left orientation engine
+    - 2: fire main engine
+    - 3: fire right orientation engine
+
+```{python}
+env.action_space
+```
+
+## Reward space
+
+For each step, the reward:
+
+- Increased/decreased the closer/further the lander is to the landing pad
+- Increased/decreased the slower/faster the lander is moving
+- Decreased the more the lander is tilted, i.e. angle not horizontal
+- Decreased by 10 points for each leg that is in contact with the ground
+- Decreased by 0.03 points each frame a side engine is firing
+- Decreased by 0.3 points each frame the main engine is firing
+- The episode receive an additional reward of -100 or +100 points for crashing or landing safely respectively
+- An episode is considered a solution if it scores at least 200 points
+
+```{python}
+env.spec.reward_threshold
+```
+
+## Interaction
+
+We can either manually or automatically interact with the environment.
+
+### Manual
+
+Reset the environment, print and render the initial state.
+
+```{python}
+# Imports
+from PIL import Image
+
+# Reset
+data = env.reset()
+
+# Print
+print(f'State: {data["observation"].tolist()}')
+
+# Render
+img = Image.fromarray(env.render())
+img.save('images/luna_lander.png')
+```
+
+![](images/luna_lander.png)
+
+Select and print the random action.
+
+```{python}
+env.rand_action(data)
+print(f'Action: {data["action"].tolist()}')
+```
+
+Apply the selected random action and print the next state and reward.
+
+```{python}
+env.step(data)
+print(f'Next state: {data["next"]["observation"].tolist()}')
+print(f'Reward: {data["next"]["reward"].tolist()}')
+```
+
+Print the (state, action) -> (reward, next state) transition.
+
+```{python}
+def print_transition(previous_state, previous_action, reward, next_state):
+    if previous_state is not None:
+        print(f'State: {previous_state}')
+    print(f'Action: {previous_action}')
+    print('\n\t\t|' * 4 + f' Reward: {reward}' + '\n\t\t|' * 3 + '\n')
+    print(f'State: {next_state}')
+
+print_transition(data['observation'].tolist(), data['action'].tolist(), data['next']['reward'].tolist(), data['next']['observation'].tolist())
+```
+
+Set the next state as the current state.
+
+```{python}
+# Imports
+from torchrl.envs import step_mdp
+
+# Set
+data = step_mdp(data)
+
+# Print current state
+print(f'State: {data["observation"].tolist()}')
+```
+
+Run a rollout in the environment by repeating the above steps.
+
+```{python}
+# Create
+env = GymEnv('LunarLander-v3')
+env.set_seed(5)
+
+# Rollout
+data = env.reset()
+n_steps = 10
+for n in range(n_steps):
+    env.rand_action(data)
+    env.step(data)
+    print_transition(data['observation'].tolist() if n == 0 else None, data['action'].tolist(), data['next']['reward'].tolist(), data['next']['observation'].tolist())
+    data = step_mdp(data)
+```
+
+### Automatic
+
+```{python}
+# Create
+env = GymEnv('LunarLander-v3')
+env.set_seed(5)
+
+# Rollout
+rollout = env.rollout(max_steps=10)
+for n, data in enumerate(rollout):
+    print_transition(data['observation'].tolist() if n == 0 else None, data['action'].tolist(), data['next']['reward'].tolist(), data['next']['observation'].tolist())
+```
+
+### Recording
+
+```{python}
+# Imports
+from torchrl.record import CSVLogger, VideoRecorder, PixelRenderTransform
+
+# Create
+env = GymEnv('LunarLander-v3', render_mode='rgb_array')
+env.set_seed(5)
+env = env.append_transform(PixelRenderTransform())
+env = env.append_transform(
+    VideoRecorder(
+        CSVLogger(exp_name='lunar-lander', video_format='mp4', log_dir='videos'), 
+        tag='pixels_record'
+    )
+)
+
+# Rollout
+env.rollout(1000)
+env.transform.dump()
+```
+
+{{< video videos/lunar-lander/videos/pixels_record_0.mp4 >}}

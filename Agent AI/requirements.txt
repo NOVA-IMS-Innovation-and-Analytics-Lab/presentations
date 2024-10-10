@@ -1,0 +1,4 @@
+torchrl>=0.5.0
+tensordict>=0.5.0
+torchvision>=0.19.1
+av>=13.1.0
